@@ -24,42 +24,49 @@ ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
 schema = {
     # Schema definition, based on Cerberus grammar. Check the Cerberus project
     # (https://github.com/nicolaiarocci/cerberus) for details.
-    'firstname': {
+    'name': {
         'type': 'string',
         'minlength': 1,
-        'maxlength': 10,
-    },
-    'lastname': {
-        'type': 'string',
-        'minlength': 1,
-        'maxlength': 15,
+        'maxlength': 255,
         'required': True,
-        # talk about hard constraints! For the purpose of the demo
-        # 'lastname' is an API entry-point, so we need it to be unique.
         'unique': True,
     },
-    # 'role' is a list, and can only contain values from 'allowed'.
-    'role': {
-        'type': 'list',
-        'allowed': ["author", "contributor", "copy"],
+    'ssl_cert': {
+        'type': 'string',
+        'minlength': 1,
+        'maxlength': 255,
+        'required': False,
     },
-    # An embedded 'strongly-typed' dictionary.
-    'location': {
-        'type': 'dict',
-        'schema': {
-            'address': {'type': 'string'},
-            'city': {'type': 'string'}
-        },
+    'ssl_key': {
+        'type': 'string',
+        'minlength': 1,
+        'maxlength': 255,
+        'required': False,
     },
-    'born': {
-        'type': 'datetime',
+    'ssl_chain': {
+        'type': 'string',
+        'minlength': 1,
+        'maxlength': 255,
+        'required': False,
     },
+    'ports_plain': {
+        'type': 'string',
+        'minlength': 1,
+        'maxlength': 255,
+        'required': False,
+    },
+    'ports_ssl': {
+        'type': 'string',
+        'minlength': 1,
+        'maxlength': 255,
+        'required': False,
+    }
 }
 
-people = {
+virtual_host = {
     # 'title' tag used in item links. Defaults to the resource title minus
     # the final, plural 's' (works fine in most cases but not for 'people')
-    'item_title': 'person',
+    'item_title': 'virtual_host',
 
     # by default the standard item entry point is defined as
     # '/people/<ObjectId>'. We leave it untouched, and we also enable an
@@ -67,7 +74,7 @@ people = {
     # GET requests at '/people/<lastname>'.
     'additional_lookup': {
         'url': 'regex("[\w]+")',
-        'field': 'lastname'
+        'field': 'name'
     },
 
     # We choose to override global cache-control directives for this resource.
@@ -81,5 +88,5 @@ people = {
 }
 
 # Schemas
-DOMAIN = {'people': people}
+DOMAIN = {'virtual_host': virtual_host}
 
