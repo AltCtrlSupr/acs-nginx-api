@@ -20,8 +20,19 @@ RESOURCE_METHODS = ['GET', 'POST', 'DELETE']
 # individual items  (defaults to read-only item access).
 ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
 
+
+virtual_host_alias_schema = {
+    'name': {
+        'type': 'string',
+        'minlength': 1,
+        'maxlength': 255,
+        'required': True,
+        'unique': True,
+    },
+}
+
 # Defining schema
-schema = {
+virtual_host_schema = {
     # Schema definition, based on Cerberus grammar. Check the Cerberus project
     # (https://github.com/nicolaiarocci/cerberus) for details.
     'name': {
@@ -60,6 +71,10 @@ schema = {
         'minlength': 1,
         'maxlength': 255,
         'required': False,
+    },
+    'virtual_host_alias': {
+        'type': 'dict',
+        'schema': virtual_host_alias_schema,
     }
 }
 
@@ -84,7 +99,7 @@ virtual_host = {
     # most global settings can be overridden at resource level
     'resource_methods': ['GET', 'POST'],
 
-    'schema': schema
+    'schema': virtual_host_schema
 }
 
 # Schemas
