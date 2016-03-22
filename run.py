@@ -6,7 +6,8 @@ class BasicAuth(BasicAuth):
         return username == 'admin' and password == 'secret'
 
 
-app = Eve(auth=BasicAuth)
+# app = Eve(auth=BasicAuth)
+app = Eve()
 
 if __name__ == '__main__':
     app.run()
