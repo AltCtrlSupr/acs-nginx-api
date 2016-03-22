@@ -5,6 +5,8 @@ class Development(ConfigBase):
     pass
 
 class Testing(ConfigBase):
+    DEBUG = True
+    TESTING = True
     pass
 
 class Production(ConfigBase):
