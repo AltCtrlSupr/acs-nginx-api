@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from flask import current_app, jsonify, url_for, redirect, request
+from flask import Flask, Blueprint, current_app, jsonify, url_for, redirect, request
 from flask_pymongo import PyMongo
-from flask_restful import Resource
+from flask_restful import Api, Resource
+
+app = Flask(__name__)
+api_bp = Blueprint(__name__, __name__)
+api = Api(api_bp)
 
 class VirtualHost(Resource):
     def __init__(self):
@@ -40,3 +44,5 @@ class VirtualHost(Resource):
     def delete(self, slug):
         mongo.db.virtualhost.remove({'slug': slug})
         return redirect(url_for("virtualhosts"))
+
+api.add_resource(VirtualHost, "/virtualhost", endpoint="virtualhosts")
