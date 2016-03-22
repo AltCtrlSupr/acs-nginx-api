@@ -20,6 +20,11 @@ RESOURCE_METHODS = ['GET', 'POST', 'DELETE']
 # individual items  (defaults to read-only item access).
 ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
 
+# Enable wide CORS
+X_DOMAINS = '*'
+
+# Disable HATEOAS cause is not compatible with all REST clients
+HATEOAS = False
 
 virtual_host_alias_schema = {
     'name': {
@@ -73,8 +78,12 @@ virtual_host_schema = {
         'required': False,
     },
     'virtual_host_alias': {
-        'type': 'dict',
-        'schema': virtual_host_alias_schema,
+	'type': 'objectid',
+	'data_relation': {
+	    'resource': 'virtual_host_alias',
+	    'field': '_id',
+	    'embeddable': True
+	},
     }
 }
 
@@ -102,6 +111,13 @@ virtual_host = {
     'schema': virtual_host_schema
 }
 
+virtual_host_alias = {
+    'schema': virtual_host_alias_schema
+}
+
 # Schemas
-DOMAIN = {'virtual_host': virtual_host}
+DOMAIN = {
+    'virtual_host': virtual_host,
+    'virtual_host_alias': virtual_host_alias
+}
 
