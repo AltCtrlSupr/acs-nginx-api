@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, Blueprint, current_app, jsonify, url_for, redirect, request
-from database import mongo
+from flask import Flask, Blueprint, current_app, jsonify, url_for, redirect, request, Response
 import json
+from database import mongo
 from flask.ext.restful import Api, Resource
 
 app = Flask(__name__)
@@ -21,7 +21,7 @@ class VirtualHost(Resource):
         for virtualhost in cursor:
             data.append(virtualhost)
 
-        json.dumps(data)
+        return Response(json.dumps(data),  mimetype='application/json')
 
     def post(self):
         print("post")
