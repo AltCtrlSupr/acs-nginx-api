@@ -12,7 +12,8 @@ def client(request):
 
 def test_home_page(client):
     rv = client.get('/')
-    assert rv._status_code == 200
+    # home should redirect to virtualhost
+    assert rv._status_code == 302
 
 def test_virtual_host_index(client):
     rv = client.get('/virtualhost')
