@@ -3,3 +3,4 @@ Flask-PyMongo==0.3.1
 Flask-RESTful==0.3.2
 pytest
 cerberus
+Flask-Script
