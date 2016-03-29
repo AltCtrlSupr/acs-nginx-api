@@ -1,6 +1,7 @@
 from main import app
 import pytest
 import re
+import json
 import tempfile
 
 @pytest.fixture
@@ -23,14 +24,13 @@ def test_virtual_host_post(client):
     assert error_regex.search(rv.data) is not None
     assert rv._status_code == 400
 
+    # Let's try the POST with some data
+    data = {'name':'test'}
+    rv = client.post('/virtualhost', data=json.dumps(data), content_type='application/json')
+    # assert rv._status_code == 201
+
 
 def test_virtual_host_index(client):
     rv = client.get('/virtualhost')
     assert rv._status_code == 200
-
     assert rv.headers[0] == ('Content-Type', 'application/json')
-
-    # print vars(rv)
-    # assert 1 != 1
-    # assert 'whatever' in rv.data
-
