@@ -1,5 +1,5 @@
 from main import app
-from mongo import mongo
+from database import mongo
 
 if __name__ == '__main__':
     app.config.from_object('config.Development')
