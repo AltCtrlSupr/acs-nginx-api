@@ -6,7 +6,16 @@ app = Flask(__name__)
 api_bp = Blueprint(__name__, __name__)
 api = Api(api_bp)
 
-schema = dict()
+schema = {
+    'name': {
+        'type': 'string',
+        'minlength': 1,
+        'maxlength': 255,
+        'required': True,
+        # 'unique': True,
+    },
+}
+
 
 class VirtualHostAlias(BaseResource):
     def __init__(self):

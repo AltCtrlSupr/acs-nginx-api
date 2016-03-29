@@ -21,7 +21,7 @@ class BaseResource(Resource):
     def get(self):
         data = []
 
-        cursor = self.mongo.db.virtualhost.find({}, {"_id": 0, "update_time": 0}).limit(10)
+        cursor = self.mongo.db[self.collection].find({}, {"_id": 0, "update_time": 0}).limit(10)
 
         for virtualhost in cursor:
             data.append(virtualhost)
@@ -30,7 +30,7 @@ class BaseResource(Resource):
 
     def post(self):
 
-        v = Validator(virtual_host_schema)
+        v = Validator(self.schema)
 
         if not request.json:
             resp = jsonify({"response": "ERROR"})
@@ -41,7 +41,7 @@ class BaseResource(Resource):
             resp.status_code = 400
 
         else:
-            self.mongo.db.virtualhost.insert(request.json)
+            self.mongo.db[self.collection].insert(request.json)
             resp = jsonify(json.loads(dumps(request.json)))
             resp.status_code = 201
 
@@ -49,9 +49,9 @@ class BaseResource(Resource):
 
     def put(self, slug):
         data = request.get_json()
-        self.mongo.db.virtualhost.update({'slug': slug}, {'$set': data})
+        self.mongo.db[self.collection].update({'slug': slug}, {'$set': data})
         return redirect(url_for("virtualhost.virtualhosts"))
 
     def delete(self, slug):
-        self.mongo.db.virtualhost.remove({'slug': slug})
+        self.mongo.db[self.collection].remove({'slug': slug})
         return redirect(url_for("virtualhost.virtualhosts"))
