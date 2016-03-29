@@ -27,11 +27,10 @@ class VirtualHost(Resource):
         data = request.get_json()
         if not data:
             data = {"response": "ERROR"}
-            return jsonify(data)
+            resp = jsonify(data)
+            resp.status_code = 400
+            return resp
         else:
-            #if mongo.db.virtualhost.find_one({"slug": slug}):
-                #return {"response": "student already exists."}
-            #else:
             self.mongo.db.virtualhost.insert(data)
 
         return redirect(url_for("virtualhosts"))

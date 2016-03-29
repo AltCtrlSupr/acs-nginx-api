@@ -1,5 +1,6 @@
 from main import app
 import pytest
+import re
 import tempfile
 
 @pytest.fixture
@@ -14,6 +15,14 @@ def test_home_page(client):
     rv = client.get('/')
     # home should redirect to virtualhost
     assert rv._status_code == 302
+
+def test_virtual_host_post(client):
+    rv = client.post('/virtualhost')
+    # This request should return error with no data
+    error_regex = re.compile("(ERROR)")
+    assert error_regex.search(rv.data) is not None
+    assert rv._status_code == 400
+
 
 def test_virtual_host_index(client):
     rv = client.get('/virtualhost')
