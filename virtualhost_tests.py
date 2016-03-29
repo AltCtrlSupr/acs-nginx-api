@@ -27,10 +27,19 @@ def test_virtual_host_post(client):
     # Let's try the POST with some data
     data = {'name':'test'}
     rv = client.post('/virtualhost', data=json.dumps(data), content_type='application/json')
-    # assert rv._status_code == 201
+    assert rv._status_code == 201
+    print(rv.data)
+
+# def test_virtual_host_ge(client):
+    # rv = client.get('/virtualhost/1')
+    # assert rv._status_code == 200
 
 
 def test_virtual_host_index(client):
     rv = client.get('/virtualhost')
     assert rv._status_code == 200
+
     assert rv.headers[0] == ('Content-Type', 'application/json')
+
+    assert 'test' in rv.data
+
