@@ -5,6 +5,7 @@ from cerberus import Validator
 from database import mongo
 from flask.ext.restful import Api, Resource
 from bson.json_util import loads, dumps
+from encoders.json_encoder import JSONEncoder
 
 app = Flask(__name__)
 api_bp = Blueprint(__name__, __name__)
@@ -23,8 +24,8 @@ class BaseResource(Resource):
 
         cursor = self.mongo.db[self.collection].find({}, {"_id": 0, "update_time": 0}).limit(10)
 
-        for virtualhost in cursor:
-            data.append(virtualhost)
+        for item in cursor:
+            data.append(item)
 
         return Response(json.dumps(data),  mimetype='application/json')
 
@@ -42,7 +43,7 @@ class BaseResource(Resource):
 
         else:
             self.mongo.db[self.collection].insert(request.json)
-            resp = jsonify(json.loads(dumps(request.json)))
+            resp = jsonify(json.loads(JSONEncoder().encode(request.json)))
             resp.status_code = 201
 
         return resp
