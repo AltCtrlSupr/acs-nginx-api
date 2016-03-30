@@ -22,10 +22,10 @@ class BaseResource(Resource):
     def get(self):
         data = []
 
-        cursor = self.mongo.db[self.collection].find({}, {"_id": 0, "update_time": 0}).limit(10)
+        cursor = self.mongo.db[self.collection].find({}).limit(10)
 
         for item in cursor:
-            data.append(item)
+            data.append(json.loads(JSONEncoder().encode(item)))
 
         return Response(json.dumps(data),  mimetype='application/json')
 

@@ -40,6 +40,6 @@ def test_virtual_host_index(client):
     assert rv._status_code == 200
 
     assert rv.headers[0] == ('Content-Type', 'application/json')
-
     assert 'test' in rv.data
+    assert '_id' in rv.data
 
