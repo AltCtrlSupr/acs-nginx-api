@@ -5,6 +5,7 @@ class Development(ConfigBase):
     pass
 
 class Testing(ConfigBase):
+    MONGO_HOST = 'mongo'
     DEBUG = True
     TESTING = True
     pass
