@@ -10,5 +10,6 @@ class Testing(ConfigBase):
     pass
 
 class Production(ConfigBase):
+    MONGO_HOST = 'mongo'
     pass
 
