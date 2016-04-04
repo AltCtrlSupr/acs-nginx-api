@@ -1,3 +1,5 @@
 from main import app
 
-app.config.from_object('config.Production')
+if __name__ == '__main__':
+    app.config.from_object('config.Production')
+    app.run()
