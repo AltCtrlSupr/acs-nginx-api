@@ -1,3 +1,5 @@
 FROM python:2-onbuild
 
-CMD [ "python", "wsgi.py" ]
+EXPOSE 8080
+
+CMD ["uwsgi", "--http", ":8080", "--wsgi-file", "wsgi.py"]

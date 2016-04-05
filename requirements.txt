@@ -4,3 +4,4 @@ Flask-RESTful==0.3.2
 pytest
 cerberus
 Flask-Script
+uwsgi

@@ -1,4 +1,4 @@
-from main import app
+from test import app
 import pytest
 import re
 import json
@@ -7,7 +7,6 @@ import tempfile
 @pytest.fixture
 def client(request):
     db_fd, app.config['DATABASE'] = tempfile.mkstemp()
-    app.config['TESTING'] = True
     client = app.test_client()
 
     return client
