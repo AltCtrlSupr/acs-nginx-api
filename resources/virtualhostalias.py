@@ -6,7 +6,7 @@ app = Flask(__name__)
 api_bp = Blueprint(__name__, __name__)
 api = Api(api_bp)
 
-schema = {
+virtual_host_alias_schema = {
     'name': {
         'type': 'string',
         'minlength': 1,
@@ -20,7 +20,7 @@ schema = {
 class VirtualHostAlias(BaseResource):
     def __init__(self):
         super(VirtualHostAlias, self).__init__()
-        self.collection = 'collection'
-        self.schema = schema
+        self.collection = 'virtualhostalias'
+        self.schema = virtual_host_alias_schema
 
 api.add_resource(VirtualHostAlias, '/virtualhostalias', endpoint='virtualhostalias')

@@ -22,6 +22,7 @@ class BaseResource(Resource):
     def get(self):
         data = []
 
+        # Executing the query
         cursor = self.mongo.db[self.collection].find({}).limit(10)
 
         for item in cursor:
