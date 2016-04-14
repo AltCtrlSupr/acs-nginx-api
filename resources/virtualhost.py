@@ -59,4 +59,7 @@ class VirtualHost(BaseResource):
         self.collection = 'virtualhost'
         self.schema = virtual_host_schema
 
-api.add_resource(VirtualHost, "/virtualhost", endpoint="virtualhosts")
+api.add_resource(VirtualHost,
+        "/virtualhost",
+        "/virtualhost/<string:res_id>",
+        endpoint="virtualhosts")

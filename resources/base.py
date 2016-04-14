@@ -19,17 +19,22 @@ class BaseResource(Resource):
         self.collection = 'collection'
         self.schema = schema
 
-    def get(self):
+    # GET collection and resource specified by id
+    def get(self, res_id = None):
         data = []
 
-        # Executing the query
-        cursor = self.mongo.db[self.collection].find({}).limit(10)
+        if res_id:
+            cursor = self.mongo.db[self.collection].find({'_id': res_id}).limit(10)
+        else:
+            # Executing the query
+            cursor = self.mongo.db[self.collection].find({}).limit(10)
 
         for item in cursor:
             data.append(json.loads(JSONEncoder().encode(item)))
 
         return Response(json.dumps(data),  mimetype='application/json')
 
+    # POST a new resource
     def post(self):
 
         v = Validator(self.schema)

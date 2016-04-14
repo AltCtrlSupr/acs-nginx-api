@@ -26,11 +26,14 @@ def test_virtual_host_post(client):
     rv = client.post('/virtualhost', data=json.dumps(data), content_type='application/json')
     assert rv._status_code == 201
     assert 'test' in rv.data
+    assert '_id' in rv.data
 
-# def test_virtual_host_get(client):
-    # rv = client.get('/virtualhost/1')
-    # assert rv._status_code == 200
-
+def test_virtual_host_get(client):
+    rv = client.get('/virtualhost')
+    hosts = json.loads(rv.data)
+    vhid = hosts[0]['_id']
+    rv = client.get('/virtualhost/' + vhid)
+    assert rv._status_code == 200
 
 def test_virtual_host_index(client):
     rv = client.get('/virtualhost')
