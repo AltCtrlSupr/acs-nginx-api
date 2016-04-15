@@ -35,6 +35,15 @@ def test_virtual_host_get(client):
     rv = client.get('/virtualhost/' + vhid)
     assert rv._status_code == 200
 
+def test_virtual_host_delete(client):
+    rv = client.get('/virtualhost')
+    hosts = json.loads(rv.data)
+    vhid = hosts[0]['_id']
+    rv = client.delete('/virtualhost/' + vhid)
+    assert rv._status_code == 204
+    rv = client.get('/virtualhost/' + vhid)
+    assert rv._status_code == 404
+
 def test_virtual_host_index(client):
     rv = client.get('/virtualhost')
     assert rv._status_code == 200

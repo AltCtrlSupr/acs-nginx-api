@@ -16,7 +16,6 @@ virtual_host_alias_schema = {
     },
 }
 
-
 class VirtualHostAlias(BaseResource):
     def __init__(self):
         super(VirtualHostAlias, self).__init__()

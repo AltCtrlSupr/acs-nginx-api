@@ -5,6 +5,7 @@ from cerberus import Validator
 from database import mongo
 from flask.ext.restful import Api, Resource
 from bson.json_util import loads, dumps
+from bson.objectid import ObjectId
 from encoders.json_encoder import JSONEncoder
 
 app = Flask(__name__)
@@ -24,15 +25,19 @@ class BaseResource(Resource):
         data = []
 
         if res_id:
-            cursor = self.mongo.db[self.collection].find({'_id': res_id}).limit(10)
+            resource = self.mongo.db[self.collection].find_one({'_id': ObjectId(res_id)})
+            data = json.loads(JSONEncoder().encode(resource))
         else:
             # Executing the query
             cursor = self.mongo.db[self.collection].find({}).limit(10)
 
-        for item in cursor:
-            data.append(json.loads(JSONEncoder().encode(item)))
+            for item in cursor:
+                data.append(json.loads(JSONEncoder().encode(item)))
 
-        return Response(json.dumps(data),  mimetype='application/json')
+        if data:
+            return Response(json.dumps(data), mimetype='application/json')
+        else:
+            return Response([], status=404, mimetype='application/json')
 
     # POST a new resource
     def post(self):
@@ -60,6 +65,8 @@ class BaseResource(Resource):
         self.mongo.db[self.collection].update({'slug': slug}, {'$set': data})
         return redirect(url_for("virtualhost.virtualhosts"))
 
-    def delete(self, slug):
-        self.mongo.db[self.collection].remove({'slug': slug})
-        return redirect(url_for("virtualhost.virtualhosts"))
+    def delete(self, res_id):
+        self.mongo.db[self.collection].remove({'_id': ObjectId(res_id)})
+        resp = jsonify([])
+        resp.status_code = 204
+        return resp

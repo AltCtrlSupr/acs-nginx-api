@@ -35,6 +35,7 @@ def test_virtual_host_alias_get(client):
     hosts = json.loads(rv.data)
     vhid = hosts[0]['_id']
     rv = client.get('/virtualhostalias/' + vhid)
+    print rv.data
     assert rv._status_code == 200
 
 
