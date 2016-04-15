@@ -14,6 +14,8 @@ api = Api(api_bp)
 
 schema = dict()
 
+# This is a base resource definition it works as a template for
+# the real resources, it handles the basic CRUD
 class BaseResource(Resource):
     def __init__(self):
         self.mongo = mongo
@@ -59,12 +61,13 @@ class BaseResource(Resource):
 
         return resp
 
-    # Update resource
+    # Update a resource
     def put(self, slug):
         data = request.get_json()
         self.mongo.db[self.collection].update({'slug': slug}, {'$set': data})
         return redirect(url_for("virtualhost.virtualhosts"))
 
+    # Remove a resource
     def delete(self, res_id):
         self.mongo.db[self.collection].remove({'_id': ObjectId(res_id)})
         resp = jsonify([])
