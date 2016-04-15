@@ -54,6 +54,7 @@ class BaseResource(Resource):
 
         return resp
 
+    # Update resource
     def put(self, slug):
         data = request.get_json()
         self.mongo.db[self.collection].update({'slug': slug}, {'$set': data})

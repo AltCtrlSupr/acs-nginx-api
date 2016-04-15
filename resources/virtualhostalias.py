@@ -23,4 +23,7 @@ class VirtualHostAlias(BaseResource):
         self.collection = 'virtualhostalias'
         self.schema = virtual_host_alias_schema
 
-api.add_resource(VirtualHostAlias, '/virtualhostalias', endpoint='virtualhostalias')
+api.add_resource(VirtualHostAlias,
+        '/virtualhostalias',
+        '/virtualhostalias/<string:res_id>',
+        endpoint='virtualhostalias')

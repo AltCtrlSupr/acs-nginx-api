@@ -9,7 +9,7 @@ def client(request):
 
     return client
 
-def test_virtual_alias_post(client):
+def test_virtual_host_alias_post(client):
     rv = client.post('/virtualhostalias')
     # This request should return error with no data
     error_regex = re.compile("(ERROR)")
@@ -22,10 +22,19 @@ def test_virtual_alias_post(client):
     assert rv._status_code == 201
     assert 'test' in rv.data
 
-def test_virtual_alias_index(client):
+def test_virtual_host_alias_index(client):
     rv = client.get('/virtualhostalias')
     assert rv._status_code == 200
 
     assert rv.headers[0] == ('Content-Type', 'application/json')
     assert 'test' in rv.data
     assert '_id' in rv.data
+
+def test_virtual_host_alias_get(client):
+    rv = client.get('/virtualhostalias')
+    hosts = json.loads(rv.data)
+    vhid = hosts[0]['_id']
+    rv = client.get('/virtualhostalias/' + vhid)
+    assert rv._status_code == 200
+
+
