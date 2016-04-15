@@ -62,10 +62,14 @@ class BaseResource(Resource):
         return resp
 
     # Update a resource
-    def put(self, slug):
+    def put(self, res_id):
         data = request.get_json()
-        self.mongo.db[self.collection].update({'slug': slug}, {'$set': data})
-        return redirect(url_for("virtualhost.virtualhosts"))
+        resource = self.mongo.db[self.collection].update({'_id': ObjectId(res_id)}, {'$set': data})
+
+        resp = jsonify(json.loads(JSONEncoder().encode(resource)))
+        resp.status_code = 200
+
+        return resp
 
     # Remove a resource
     def delete(self, res_id):
