@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 import json
 from flask import Flask, Blueprint, current_app, jsonify, url_for, redirect, request, Response
-from cerberus import Validator
+from eve.io.mongo.validation import Validator
 from database import mongo
 from flask.ext.restful import Api, Resource
 from bson.json_util import loads, dumps
 from bson.objectid import ObjectId
 from encoders.json_encoder import JSONEncoder
+from flasgger import Swagger
 
 app = Flask(__name__)
+Swagger(app)
 api_bp = Blueprint(__name__, __name__)
 api = Api(api_bp)
 
