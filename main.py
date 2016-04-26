@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, url_for, redirect
 from database import mongo
+from flasgger import Swagger
 import pkgutil
 
 app = Flask(__name__)
+Swagger(app)
 
 # Loading dynamically the resources
 resources_dir = 'resources'

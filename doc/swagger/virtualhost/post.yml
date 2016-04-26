@@ -4,10 +4,10 @@ the format of the first lines until 3 hyphens will be not yaml compliant
 but everything below the 3 hyphens should be.
 ---
 tags:
-  - users
+  - virtualhosts
 parameters:
-  - in: path
-    name: username
+  - in: body
+    name: name
     type: string
     required: true
 responses:

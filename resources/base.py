@@ -7,10 +7,8 @@ from flask.ext.restful import Api, Resource
 from bson.json_util import loads, dumps
 from bson.objectid import ObjectId
 from encoders.json_encoder import JSONEncoder
-from flasgger import Swagger
 
 app = Flask(__name__)
-Swagger(app)
 api_bp = Blueprint(__name__, __name__)
 api = Api(api_bp)
 
