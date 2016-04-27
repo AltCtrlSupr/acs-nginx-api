@@ -10,13 +10,30 @@ parameters:
     name: name
     type: string
     required: true
+  - in: body
+    name: ssl_cert
+    type: string
+    required: false
+  - in: body
+    name: ssl_key
+    type: string
+    required: false
+  - in: body
+    name: ssl_chain
+    type: string
+    required: false
+  - in: body
+    name: ports_plain
+    type: string
+    required: false
+  - in: body
+    name: ports_ssl
+    type: string
+    required: false
+  - in: body
+    name: virtual_host_alias
+    type: string
+    required: false
 responses:
-  200:
-    description: A single user item
-    schema:
-      id: rec_username
-      properties:
-        username:
-          type: string
-          description: The name of the user
-          default: 'steve-harris'
+  201:
+    description: A virtualhost has been created
