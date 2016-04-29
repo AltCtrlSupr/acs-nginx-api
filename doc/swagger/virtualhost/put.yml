@@ -1,0 +1,39 @@
+First line is the summary
+All following lines until the hyphens is added to description
+the format of the first lines until 3 hyphens will be not yaml compliant
+but everything below the 3 hyphens should be.
+---
+tags:
+  - virtualhosts
+parameters:
+  - in: body
+    name: name
+    type: string
+    required: true
+  - in: body
+    name: ssl_cert
+    type: string
+    required: false
+  - in: body
+    name: ssl_key
+    type: string
+    required: false
+  - in: body
+    name: ssl_chain
+    type: string
+    required: false
+  - in: body
+    name: ports_plain
+    type: string
+    required: false
+  - in: body
+    name: ports_ssl
+    type: string
+    required: false
+  - in: body
+    name: virtual_host_alias
+    type: string
+    required: false
+responses:
+  201:
+    description: A virtualhost has been created

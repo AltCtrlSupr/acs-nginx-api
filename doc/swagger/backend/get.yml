@@ -1,0 +1,42 @@
+Get virtualhosts as collection or one specified by its id
+---
+tags:
+  - backends
+parameters:
+  - in: path
+    name: res_id
+    type: string
+    required: false
+responses:
+  200:
+    description: A collection or single virtualhost
+    schema:
+      properties:
+        name:
+          type: string
+          description: The domain of virtualhost
+          default: 'example.com'
+        ssl_cert:
+          type: string
+          description: The domain of virtualhost
+          default: 'example.com'
+        ssl_key:
+          type: string
+          description: The domain of virtualhost
+          default: 'example.com'
+        ssl_chain:
+          type: string
+          description: The domain of virtualhost
+          default: 'example.com'
+        ports_plain:
+          type: string
+          description: The domain of virtualhost
+          default: 'example.com'
+        ports_ssl:
+          type: string
+          description: The domain of virtualhost
+          default: 'example.com'
+        virtual_host_alias:
+          type: string
+          description: The domain of virtualhost
+          default: 'example.com'

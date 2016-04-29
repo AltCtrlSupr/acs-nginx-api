@@ -25,6 +25,14 @@ class VirtualHost(BaseResource):
     def post(self):
         return super(VirtualHost, self).post()
 
+    @swag_from('../doc/swagger/virtualhost/put.yml')
+    def put(self, res_id):
+        return super(VirtualHost, self).put(res_id)
+
+    @swag_from('../doc/swagger/virtualhost/delete.yml')
+    def delete(self, res_id):
+        return super(VirtualHost, self).delete(res_id)
+
 api.add_resource(VirtualHost,
         "/virtualhost",
         "/virtualhost/<string:res_id>",
