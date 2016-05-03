@@ -1,20 +1,13 @@
 from resources.base import BaseResource
 from flask import Flask, Blueprint
 from flask.ext.restful import Api
+from schemas import virtualhostalias
 
 app = Flask(__name__)
 api_bp = Blueprint(__name__, __name__)
 api = Api(api_bp)
 
-virtual_host_alias_schema = {
-    'name': {
-        'type': 'string',
-        'minlength': 1,
-        'maxlength': 255,
-        'required': True,
-        # 'unique': True,
-    },
-}
+virtual_host_alias_schema = virtualhostalias.virtual_host_alias_schema
 
 class VirtualHostAlias(BaseResource):
     def __init__(self):

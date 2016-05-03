@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import json
 from flask import Flask, Blueprint, current_app, jsonify, url_for, redirect, request, Response
-from eve.io.mongo.validation import Validator
+
+from validators.mongo_validation import Validator
+
 from database import mongo
 from flask.ext.restful import Api, Resource
 from bson.json_util import loads, dumps
@@ -63,6 +65,8 @@ class BaseResource(Resource):
 
     # Update a resource
     def put(self, res_id):
+        v = Validator(self.schema, self.collection)
+
         data = request.get_json()
         resource = self.mongo.db[self.collection].update({'_id': ObjectId(res_id)}, {'$set': data})
 
