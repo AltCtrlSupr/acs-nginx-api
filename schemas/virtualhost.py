@@ -1,4 +1,4 @@
-virtual_host_schema = {
+schema = {
     'name': {
         'type': 'string',
         'minlength': 1,
@@ -43,6 +43,6 @@ virtual_host_schema = {
             'field': '_id',
             'embeddable': True
         }
-    }
+    },
 }
 

@@ -19,10 +19,15 @@ schema = dict()
 # This is a base resource definition it works as a template for
 # the real resources, it handles the basic CRUD
 class BaseResource(Resource):
+
+    collection = 'collection'
+
     def __init__(self):
         self.mongo = mongo
-        self.collection = 'collection'
-        self.schema = schema
+        if self.collection in current_app.config['DOMAIN']:
+            self.schema = current_app.config['DOMAIN'][self.collection]['schema']
+        else:
+            self.schema = None
 
     # GET collection and resource specified by id
     def get(self, res_id = None):
@@ -46,7 +51,7 @@ class BaseResource(Resource):
     # POST a new resource
     def post(self):
 
-        v = Validator(self.schema)
+        v = Validator(self.schema, self.collection)
 
         if not request.json:
             resp = jsonify({"response": "ERROR"})
