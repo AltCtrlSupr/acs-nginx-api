@@ -1,7 +1,9 @@
 from test import app
-from generators import nginx_conf_generator
+from generators.nginx_conf_generator import NginxConfGenerator
 import pytest
 
 def test_write_file():
-    # nginx_conf_generator.read_file('test')
-    assert True == True
+    with app.app_context():
+        generator = NginxConfGenerator()
+        generator.generate()
+        assert True == True

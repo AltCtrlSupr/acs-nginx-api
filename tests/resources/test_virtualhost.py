@@ -24,7 +24,12 @@ def test_virtual_host_post(client):
     assert rv._status_code == 400
 
     # Let's try the POST with some data
-    data = {'name':'test'}
+    data = {
+        'name':'test',
+        'ssl_cert':'LorMfaslkdjfalskfj',
+        'ssl_key':'LorMfaslkdjfalskfj',
+        'ssl_chain':'LorMfaslkdjfalskfj',
+    }
     rv = client.post('/virtualhost', data=json.dumps(data), content_type='application/json')
     assert rv._status_code == 201
     assert 'test' in rv.data
